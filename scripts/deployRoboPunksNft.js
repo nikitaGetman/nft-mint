@@ -1,17 +1,32 @@
-const hre = require("hardhat");
+const { ethers, run } = require("hardhat");
 
 async function main() {
-  const RoboPunksNFT = await hre.ethers.getContractFactory("RoboPunksNFT");
+  const RoboPunksNFT = await ethers.getContractFactory("RoboPunksNFT");
   const roboPunksNFT = await RoboPunksNFT.deploy();
 
   console.log("Start deploying...");
   await roboPunksNFT.deployed();
 
   console.log("RoboPunksNFT deployed to:", roboPunksNFT.address);
+  console.log("Waiting for 5 confirmations...");
+
+  await ethers.provider.waitForTransaction(
+    roboPunksNFT.deployTransaction.hash,
+    5,
+    150000
+  );
+
+  console.log("Confirmed 5 times");
+  console.log("Start verification");
+
+  await run("verify:verify", {
+    address: roboPunksNFT.address,
+    contract: "contracts/RoboPunksNFT.sol:RoboPunksNFT",
+  });
+
+  console.log("Contract verified");
 }
 
-// We recommend this pattern to be able to use async/await everywhere
-// and properly handle errors.
 main()
   .then(() => process.exit(0))
   .catch((error) => {

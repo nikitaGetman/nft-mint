@@ -28,6 +28,8 @@ const MainMint = ({ accounts, setAccounts }) => {
         );
         const response = await contract.mint(BigNumber.from(mintAmount), {
           value: ethers.utils.parseEther((0.02 * mintAmount).toString()),
+          gasPrice: 5_000_000_000,
+          gasLimit: 1_000_000,
         });
         console.log("response: ", response);
       } catch (err) {

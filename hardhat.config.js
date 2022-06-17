@@ -19,10 +19,6 @@ module.exports = {
       url: process.env.REACT_APP_GOERLI_RPC_URL,
       accounts: [process.env.REACT_APP_PRIVATE_KEY],
     },
-    ropsten: {
-      url: "https://speedy-nodes-nyc.moralis.io/9333c4879735cf8b47c5c703/eth/ropsten",
-      accounts: [process.env.REACT_APP_PRIVATE_KEY],
-    },
     mumbai: {
       url: process.env.REACT_APP_MUMBAI_RPC_URL,
       accounts: [process.env.REACT_APP_PRIVATE_KEY],
